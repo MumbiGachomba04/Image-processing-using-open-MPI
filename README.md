@@ -2,9 +2,9 @@
 This is a short parallel program that processes a blurry grey scale image into a clearer one by increasing its contrast.
 Image processing tools provide a large range of different algorithms for all kind of circumstances. A simple and effective algorithm is the Histogram equalization. It re-adjusts the contrast of an image using the image's histogram.
 <p float="left">
-<img src="https://user-images.githubusercontent.com/45368931/167435661-4a806568-0674-4026-b868-98a3b90f60c8.jpg" title="Before processing" width="48%"> 
+<img src="https://user-images.githubusercontent.com/45368931/167435661-4a806568-0674-4026-b868-98a3b90f60c8.jpg" title="Before processing" width="45%"> 
 &nbsp; &nbsp; &nbsp; &nbsp;
-<img src="https://user-images.githubusercontent.com/45368931/167435932-994c7f03-923a-4e8f-9f4f-a62512173835.jpg" title="After processing"  width="48%"> 
+<img src="https://user-images.githubusercontent.com/45368931/167435932-994c7f03-923a-4e8f-9f4f-a62512173835.jpg" title="After processing"  width="45%"> 
 </p>
 Foster's methodology is applied to parallelise the program: It involves four main steps.<br /><br />
 1. **Partitioning**:
