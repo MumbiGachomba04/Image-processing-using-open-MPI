@@ -5,12 +5,7 @@
  * Histogram equalization 
  *
  * Usage:  main <input.jpg> <output.jpg> 
- *
- * @group_id 01
- * @author  
- *  Regina Mumbi Gachomba          
-	Ali Ahmet Taşkesen
-	Ali Er
+ * 
  * @version 1.0, 02 April 2022
  */
 
@@ -73,7 +68,6 @@ int main(int argc,char* argv[])
 	// start the timer
 	double time1= MPI_Wtime();	
 	
-	//seq_histogram_equalizer(rgb_image,width, height);
 	par_histogram_equalizer(loc_image, width, send_cnt[rank]);
 	
 	int *recv_counts =(int*) malloc( sizeof(int) * num_proc );
@@ -97,7 +91,7 @@ int main(int argc,char* argv[])
     return 0;
 }
 
-// You must only modifty this function
+
 void par_histogram_equalizer(uint8_t* local_image,int width, int local_height)
 {
    int *hist = (int*)calloc(256,sizeof(int));
@@ -139,37 +133,5 @@ void par_histogram_equalizer(uint8_t* local_image,int width, int local_height)
 
 };
 
-/*void seq_histogram_equalizer(uint8_t* rgb_image,int width, int height)
-{	
-	int *hist = (int*)calloc(256,sizeof(int));
 	
-	for(int i=0; i<height ; i++){
-		for(int j=0; j<width; j++){
-			hist[rgb_image[i*width + j]]++;
-		}
-	}
-			
-	double size = width * height;
-  
-     //cumulative sum for histogram values
-    int cumhistogram[256];
-	cumhistogram[0] = hist[0];
-    for(int i = 1; i < 256; i++)
-    {
-        cumhistogram[i] = hist[i] + cumhistogram[i-1];
-    }    
-	
-    int alpha[256];
-    for(int i = 0; i < 256; i++)
-    {
-        alpha[i] = round((double)cumhistogram[i] * (255.0/size));
-    }
-			
-    // histogram equlized image		
-    for(int y = 0; y <height ; y++){
-        for(int x = 0; x < width; x++){
-            rgb_image[y*width + x] = alpha[rgb_image[y*width + x]];
-		}
-	}
-	
-}*/
+
