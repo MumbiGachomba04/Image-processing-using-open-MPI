@@ -21,20 +21,19 @@
 #include "stb_image_write.h"
 #define CHANNEL_NUM 1
 
-void seq_histogram_equalizer(uint8_t* rgb_image,int width, int height);
 void par_histogram_equalizer(uint8_t* local_image,int width, int height);
 
 int main(int argc,char* argv[]) 
 {	
-	MPI_Init(&argc,&argv);
-	int num_proc, rank;
-	MPI_Comm_size(MPI_COMM_WORLD,&num_proc);
-	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+    MPI_Init(&argc,&argv);
+    int num_proc, rank;
+    MPI_Comm_size(MPI_COMM_WORLD,&num_proc);
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	
     int width, height, bpp;
     uint8_t* rgb_image;
-	int *send_cnt = (int*)malloc(sizeof(int) * num_proc); // size of image block sent to each process
-	uint8_t* loc_image;
+    int *send_cnt = (int*)malloc(sizeof(int) * num_proc); // size of image block sent to each process
+    uint8_t* loc_image;
 	if(rank ==0){
 		// Reading the image in grey colors	
 		rgb_image = stbi_load(argv[1], &width, &height, &bpp, CHANNEL_NUM);
@@ -48,7 +47,7 @@ int main(int argc,char* argv[])
 		   }
 		}
 		loc_image = (uint8_t*) malloc( sizeof(uint8_t) * send_cnt[0] * width );
-        memcpy(loc_image, rgb_image, send_cnt[0] * width * sizeof(uint8_t)); // assign portion of 
+                memcpy(loc_image, rgb_image, send_cnt[0] * width * sizeof(uint8_t)); // assign portion of 
 		MPI_Bcast(&width,1 ,MPI_INT,0,MPI_COMM_WORLD); // broadcast width to all processes
 		MPI_Bcast(send_cnt ,num_proc ,MPI_INT,0,MPI_COMM_WORLD); // broadcast send_count Array to all processes
 		int cum_height = send_cnt[0];
